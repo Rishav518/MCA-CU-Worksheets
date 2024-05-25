@@ -1,0 +1,37 @@
+create table EMP(ENO varchar(10) PRIMARY KEY, ENAME varchar(20), TITLE varchar(25));
+insert into EMP values("E1", "Rishav Kumar", "Electrical Engineer");
+insert into EMP values("E2", "Dristi Bhugun", "System Analyst");
+insert into EMP values("E3", "Lucky", "Mechanical Engineer");
+insert into EMP values("E4", "Jesu Yuvraj", "Programmer");
+insert into EMP values("E5", "Shika", "System Analyst");
+insert into EMP values("E6", "Neeti Naik", "Electrical Engineer");
+insert into EMP values("E7", "Vikas Kumar", "Mechanical Engineer");
+insert into EMP values("E8", "Kanika", "System Analyst");
+
+create table ASG(ENO varchar(10) REFERENCES EMP(ENO), PNO varchar(10), RESP varchar(20), DUR int);
+insert into ASG values("E1", "P1", "Manager", 12);
+insert into ASG values("E2", "P1", "Analyst", 24);
+insert into ASG values("E2", "P2", "Analyst", 6);
+insert into ASG values("E3", "P3", "Consultant", 10);
+insert into ASG values("E3", "P4", "Engineer", 48);
+insert into ASG values("E4", "P2", "Programmer", 18);
+insert into ASG values("E5", "P2", "Manager", 24);
+insert into ASG values("E6", "P4", "Manager", 48);
+insert into ASG values("E7", "P3", "Engineer", 36);
+insert into ASG values("E8", "P3", "Manager", 40);
+
+create table PROJ(PNO varchar(10), PNAME varchar(20), BUDGET int, LOC varchar(20));
+insert into PROJ values("P1", "Instrumentation", 150000, "Montreal");
+insert into PROJ values("P2", "Database Development", 135000, "New York");
+insert into PROJ values("P3", "CAD/CAM", 250000, "New York");
+insert into PROJ values("P4", "Maintenance", 310000, "Paris");
+
+SELECT ENAME, PNAME FROM EMP, ASG, PROJ 
+WHERE (DUR > 12 OR RESP = "Analyst") 
+AND EMP.ENO = ASG.ENO 
+AND (TITLE = "Electrical Engineer" OR ASG.PNO < "P3") 
+AND (DUR > 12 OR RESP <> "Analyst") 
+AND ASG.PNO = PROJ.PNO 
+
+π ENAME, PNAME(σ P1 υ P2) ∩ P3 ∩ (P4 υ P5)  ∩ (P1 υ -P2)
+π ENAME, PNAME(σ P1  ∩ P3 ∩(P4 υ P5) ∩ P6)

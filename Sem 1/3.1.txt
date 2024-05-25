@@ -1,0 +1,14 @@
+create table Projects(Task_id int, Start_date date, End_date date);
+insert into Projects values(1001, "04-11-2022", "06-11-2022");
+insert into Projects values(1002, "05-11-2022", "06-11-2022");
+insert into Projects values(1003, "08-11-2022", "09-11-2022");
+insert into Projects values(1004, "10-11-2022", "14-11-2022");
+insert into Projects values(1005, "11-11-2022", "15-11-2022");
+insert into Projects values(1006, "14-11-2022", "16-11-2022");
+
+
+
+select Projects.Start_date, Projects.End_date,
+(End_date - Start_date) as No_Of_Days
+from Projects
+order by Start_date asc

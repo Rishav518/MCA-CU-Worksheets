@@ -1,0 +1,19 @@
+create table Info(Name varchar(20), Occupation varchar(20));
+insert into Info values("Rishav", "Student");
+insert into Info values("Lucky", "Professor");
+insert into Info values("Jesu", "Actor");
+insert into Info values("Shika", "Model");
+insert into Info values("Amar", "Student");
+insert into Info values("Rishant", "Actor");
+insert into Info values("Sushil", "Professor");
+insert into Info values("Aneesh", "Student");
+insert into Info values("Atharav", "Singer");
+
+select Info.Name, SUBSTR(Occupation, 1, 1) As Occupation 
+from Info
+Order by Name asc;
+
+SELECT "There are total of" Name,  
+COUNT(*) AS `Count`, Occupation
+FROM Info
+GROUP BY Occupation

@@ -1,0 +1,32 @@
+create table Product (Product_No varchar(20) PRIMARY KEY , Description varchar(20), Price varchar(20) );
+insert into Product Values("P001", "Riding Hat", "$50");
+insert into Product Values("P002", "Jodhpurs", "$20");
+insert into Product Values("P003", "Back Support", "$60");
+insert into Product Values("P004", "Riding Boots", "$100");
+insert into Product Values("P005", "Jacket", "$150");
+
+create table Warehouse (Warehouse_No varchar(20) PRIMARY KEY , City varchar(20), Address varchar(255) );
+insert into Warehouse Values("W010", "London", "10 New Road");
+insert into Warehouse Values("W020", "Cambridge", "23 Hills Road");
+insert into Warehouse Values("W015", "York", "456 Long Road");
+insert into Warehouse Values("W040", "Bedford", "45 Old Street");
+insert into Warehouse Values("W025", "Nottingham", "56 Bar Hill");
+
+create table Stock(Stock_No int PRIMARY KEY, 
+                   Product_No varchar(20)  REFERENCES Product(Product_No),
+                   Warehouse_No varchar(20) REFERENCES  Warehouse(Warehouse_No),
+                   Quantity int, 
+                   Aisle_Number int, 
+                   Bin_Number int
+                  )
+
+insert into Stock Values("1", "P001", "W010", 200, 01, 052);
+insert into Stock Values("2", "P001", "W010", 450, 01, 056);
+insert into Stock Values("3", "P002", "W020", 250, 02, 078);
+insert into Stock Values("4", "P002", "W020", 175, 02, 073);
+insert into Stock Values("5", "P003", "W015", 225, 03, 086);
+insert into Stock Values("6", "P003", "W015", 450, 03, 080);
+insert into Stock Values("7", "P004", "W010", 500, 04, 049);
+insert into Stock Values("8", "P004", "W010", 100, 04, 045);
+insert into Stock Values("9", "P005", "W025", 400, 05, 069);
+insert into Stock Values("10", "P005", "W025", 150, 05, 063);

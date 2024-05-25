@@ -1,0 +1,139 @@
+import random
+
+
+class Card:
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return self.name
+
+
+class PokemonCard(Card):
+    def __init__(self, name, hp, pokemon_type, ability):
+        super().__init__(name)
+        self.hp = hp
+        self.pokemon_type = pokemon_type
+        self.ability = ability
+
+    def __str__(self):
+        return f"{self.name} is a {self.pokemon_type} type Pokemon with {self.hp} hp and ability {self.ability}"
+
+
+class EnergyCard(Card):
+    def __init__(self, name, symbol):
+        super().__init__(name)
+        self.symbol = symbol
+
+    def __str__(self):
+        return f"{self.name} is a energy card with symbol {self.symbol}"
+
+
+class TrainerCard(Card):
+    def __init__(self, name, card_type, text, rule):
+        super().__init__(name)
+        self.card_type = card_type
+        self.text = text
+        self.rule = rule
+
+    def __str__(self):
+        return f"{self.name} is a {self.card_type} trainer card with text {self.text} and rule {self.rule}"
+
+class Player:
+    def __init__(self, name):
+        self.name = name
+        self.cards = []
+
+    def add_cards(self, cards):
+        self.cards.extend(cards)
+
+    def __str__(self):
+        return f"Player {self.name} has cards: {', '.join([str(card) for card in self.cards])}"
+
+def main():
+    pokemon_cards = [
+                     PokemonCard("Alakazam ", 50, "Electric", "Thunderbolt"),
+                     PokemonCard("Blastoise", 80, "Power", "Shockwave"),
+                     PokemonCard("Chansey", 90, "Poison Heal", "Wonder Guard"),
+                     PokemonCard("Charizard", 70, "Magma Armor", "Marvel Scale"),
+                     PokemonCard("Clefairy", 90, "Power", "Shockwave"),
+                     PokemonCard("Gyarados", 80, "Multiscale", "Sheer Force"),
+                     PokemonCard("Hitmonchan", 90, "Poison Heal", "Wonder Guard"),
+                     PokemonCard("Machamp", 70, "Power", "Shockwave"),
+                     PokemonCard("Magneton", 80, "Magma Armor", "Marvel Scale"),
+                     PokemonCard("Mewtwo", 50, "Power", "Shockwave"),
+                     PokemonCard("Raichu", 90, "Poison Heal", "Wonder Guard"),
+                     PokemonCard("Venusaur", 80, "Multiscale", "Sheer Force"),
+                     PokemonCard("Zapdos", 70, "Power", "Shockwave"),
+                     PokemonCard("Beedrill", 80, "Magma Armor", "Marvel Scale"),
+                     PokemonCard("Dragonair", 90, "Multiscale", "Sheer Force"),
+                     PokemonCard("Dugtrio", 50, "Poison Heal", "Wonder Guard"),
+                     PokemonCard("Electabuzz", 70, "Power", "Shockwave"),
+                     PokemonCard("Electrode", 80, "Multiscale", "Sheer Force"),
+                     PokemonCard("Pidgeotto", 50, "Magma Armor", "Marvel Scale"),
+                     PokemonCard("Arcanine", 90, "Poison Heal", "Wonder Guard"),
+                     ]
+
+
+    energy_cards = [
+                    EnergyCard("Fire Energy", "Fire"),
+                    EnergyCard("Psychic Energy", "Psychic"),
+                    EnergyCard("Water Energy", "Water"),
+                    EnergyCard("Boost Energy", "Boost"),
+                    EnergyCard("Bounce Energy", "Bounce"),
+                    EnergyCard("Twin Energy", "Twin"),
+                    EnergyCard("Grass Energy", "Grass"),
+                    ]
+    trainer_cards = [
+                    TrainerCard("Alakazam","Supportor", "Draw 2 cards", "Once per turn"),
+                    TrainerCard("Clefairy", "Fighter", "Draw 3 cards", "Twice per turn"),
+                    TrainerCard("Electabuzz", "Assasin", "Draw 3 cards", "Twice per turn"),
+                    TrainerCard("Zapdos","Supportor", "Draw 2 cards", "Once per turn"),
+                    TrainerCard("Raichu", "Tank", "Draw 1 card", "Once per turn"),
+                    TrainerCard("Mewtwo","Mage", "Draw 2 cards", "Once per turn"),
+                    TrainerCard("Arcanine", "Fighter", "Draw 3 cards", "Twice per turn"),
+                     ]
+
+    deck = pokemon_cards + energy_cards + trainer_cards
+
+
+#Typical
+
+    #A. Print all cards of Deck
+    print("All cards in the deck:")
+    for card in deck:
+        print(card)
+
+    #B. Print all Pokemon Cards
+    print("\nAll Pokemon cards:\n")
+    for card in deck:
+        if isinstance(card, PokemonCard):
+            print(card)
+
+    #B. Print all Energy Cards
+    print("\nAll Energy cards: \n")
+    for card in deck:
+        if isinstance(card, EnergyCard):
+            print(card)
+
+    #B. Print all Trainer Cards
+    print("\nAll Trainer cards: \n")
+    for card in deck:
+        if isinstance(card, TrainerCard):
+            print(card)
+
+
+#Excellent
+    #Print 17 list of random cards for 2 Players
+    random.shuffle(deck)
+    player1 = Player("Dristi")
+    player2 = Player("Rishav")
+    player1.add_cards(deck[:17])
+    player2.add_cards(deck[17:34])
+
+    print(player1)
+    print(player2)
+
+
+if __name__ == '__main__':
+    main()

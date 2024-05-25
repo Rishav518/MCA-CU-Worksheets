@@ -1,0 +1,62 @@
+create table Product (Product_No varchar(20) PRIMARY KEY , Description varchar(20), Price int, Supply_Warehouse_No varchar(20) );
+insert into Product Values("P001", "Riding Hat", 50, "W010");
+insert into Product Values("P002", "Jodhpurs", 20, "W020");
+insert into Product Values("P003", "Back Support", 60, "W015");
+insert into Product Values("P004", "Riding Boots", 100, "W010");
+insert into Product Values("P005", "Jacket", 150, "W025");
+
+create table Warehouse (Warehouse_No varchar(20) PRIMARY KEY , City varchar(20), Address varchar(255) );
+insert into Warehouse Values("W010", "London", "10 New Road");
+insert into Warehouse Values("W020", "Cambridge", "23 Hills Road");
+insert into Warehouse Values("W015", "York", "456 Long Road");
+insert into Warehouse Values("W040", "Bedford", "45 Old Street");
+insert into Warehouse Values("W025", "Nottingham", "56 Bar Hill");
+
+create table Customer(Customer_No varchar(20) Primary Key, CName varchar(20), Address varchar(20), Warehouse_No varchar(20) REFERENCES  Warehouse(Warehouse_No), Credit_Limit int);
+insert into Customer values("C001", "Joan Black", "10 London Road", "W010", 1000);
+insert into Customer values("C002", "John Smith", "57 High Street", "W020", 500);
+insert into Customer values("C003", "Sam Green", "102 Blackwell Street", "W015", 2000);
+insert into Customer values("C004", "Peter Coldwell", "23 Cambridge Road", "W010", 1500);
+insert into Customer values("C005", "Ann GreenMan", "345 Hendon Way", "W025", 2500);
+
+create table COrder(COrder_No varchar(20), Customer_No varchar(20) REFERENCES Customer(Customer_No), Date_Placed Date, Date_Delivered Date);
+insert into COrder values("C0101", "C001", '2020-08-10', '2020-08-14');
+insert into COrder values("C0102", "C005", '2020-07-23', '2020-07-25');
+insert into COrder values("C0103", "C004", '2020-06-19', '2020-06-25');
+insert into COrder values("C0104", "C002", '2020-06-19', '2020-06-30');
+insert into COrder values("C0105", "C003", '2020-05-05', '2020-05-09');
+
+create table OLine(COrder_No varchar(20), Product_No varchar(20) References Product(Product_No), Quantity int);
+insert into OLine values("C0101", "P001", 1);
+insert into OLine values("C0102", "P005", 3);
+insert into OLine values("C0103", "P003", 2);
+insert into OLine values("C0104", "P001", 2);
+insert into OLine values("C0105", "P002", 4);
+
+select Customer.Customer_No, Customer.CName from Customer
+where Warehouse_No = "W010";
+
+Select * from Product 
+where Price >100 and Description!="Jacket";
+
+select Product.Product_No, Product.Description from Product
+where Price between 50 and 100;
+
+select Warehouse.Warehouse_No, Warehouse.Address from Warehouse
+where City Like "Y%";
+
+select * from Product
+where Description != "Riding Hat" and Description != "Riding Boots";
+
+select Avg(Price) from Product;
+
+select Customer.CName, Min(Credit_Limit) from Customer;
+select Customer.CName, Max(Credit_Limit) from Customer;
+
+select Customer.Customer_No, Customer.CName from Customer
+Order by Cname desc;
+
+select Product.Product_No, Product.Price, Product.Supply_Warehouse_No from Product
+Order by Price desc, Supply_Warehouse_No asc;
+
+

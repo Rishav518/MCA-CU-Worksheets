@@ -1,0 +1,199 @@
+Create table Warehouse
+	(Warehouse_No		varchar(5), 
+	Location		varchar(20),
+	Address			varchar(20),
+	constraint pk_whno primary key(Warehouse_No));
+
+
+
+Create table Customer
+	(Customer_no		varchar(5), 
+	CName			varchar(20),
+	Address			varchar(20),	
+	Warehouse_No		varchar(5),
+	Credit_Limit		float(6,2),
+	constraint pk_custno primary key(Customer_no),		
+	constraint fk_whno foreign key(Warehouse_No) references Warehouse(Warehouse_No));
+
+
+
+Create table Product
+	(Product_No		varchar(5), 
+	Description		varchar(20),
+	Price			float(6,2),
+	Supply_Warehouse_No	varchar(5),
+	constraint pk_prodno primary key(Product_No),			
+	constraint fk_swhno foreign key(Supply_Warehouse_No) references Warehouse(Warehouse_No));
+
+
+Create table Corder
+	(Corder_No		varchar(5), 
+	Customer_No		varchar(5),
+	Date_Placed		date,	
+	Date_Delivered		date,
+	constraint pk_cordno primary key(Corder_No),
+	constraint fk_custno foreign key(Customer_No) references Customer(Customer_No));
+
+Create table Oline
+	(Corder_No		varchar(5), 
+	Product_No		varchar(5),
+	Quantity		float(6,2),	
+	constraint pk_olno primary key(Corder_No,Product_No),		
+	constraint fk_cordno foreign key(Corder_No) references Corder(Corder_No),
+	constraint fk_prodno2 foreign key(Product_No) references Product(Product_No));
+
+
+
+
+INSERT INTO warehouse VALUES ('W001','Bedford', '100 New Road');
+INSERT INTO warehouse VALUES ('W003','Luton', '230 Hills Road');
+INSERT INTO warehouse VALUES ('W005','Stevenage', '345 Long Road');
+INSERT INTO warehouse VALUES ('W008','Chestnut', '450 Old Street');
+INSERT INTO warehouse VALUES ('W010','London', '10 New Road');
+INSERT INTO warehouse VALUES ('W015','Cambridge', '23 Hills Road');
+INSERT INTO warehouse VALUES ('W020','York', '456 Long Road');
+INSERT INTO warehouse VALUES ('W025','Bedford', '45 Old Street');
+INSERT INTO warehouse VALUES ('W040','Nottingham', '56 Bar Hill');
+INSERT INTO warehouse VALUES ('W045','Luton', '300 Grey Hills Road');
+INSERT INTO warehouse VALUES ('W060','Stevenage', '564 London Road');
+INSERT INTO warehouse VALUES ('W090','Chestnut', '345 Newham Street');
+
+
+
+
+
+INSERT INTO Customer VALUES ('C001','Joan Black','10 London Road','W005',1000);
+INSERT INTO Customer VALUES ('C002','John Smith','57 High Street','W001',1040);
+INSERT INTO Customer VALUES ('C003','Sam Green','102 Blackwell Street','W003',6000);
+INSERT INTO Customer VALUES ('C004','Peter Coldwell','23 Cambridge Road','W005',500);
+INSERT INTO Customer VALUES ('C005','Ann Greenman','345 Hendon Way','W008',1000);
+INSERT INTO Customer VALUES ('C006','Joan Hope','453 Potters Bar Road','W008',500);
+INSERT INTO Customer VALUES ('C007','Ismail Bakry','345 Stoney Road','W005',3000);
+INSERT INTO Customer VALUES ('C008','Jim Jackson','342 Luton Way','W008',2000);
+INSERT INTO Customer VALUES ('C009','Sam Keen','453 Dunstable Street','W040',500);
+INSERT INTO Customer VALUES ('C010','Kim Lui','123 Bedford Way','W005',1000);
+INSERT INTO Customer VALUES ('C011','Jay Mehta','342 Welwyn way','W090',6000);
+INSERT INTO Customer VALUES ('C012','Noor Bakry','10 Potters Bar Road','W060',1070);
+INSERT INTO Customer VALUES ('C013','Sarah Parks','456 Hatfield Road','W090',2000);
+INSERT INTO Customer VALUES ('C014','Syed Qureshi','234 Leighton Road','W090',3000);
+INSERT INTO Customer VALUES ('C015','Russell Brown','123 Milton Way','W005',1000);
+
+INSERT INTO Customer VALUES ('C016','Syed Bakry','101 Potters Bar Road','W010',1070);
+INSERT INTO Customer VALUES ('C017','Janet Parks','4 Hatfield Road','W010',2000);
+INSERT INTO Customer VALUES ('C018','Abdul Qureshi','23 Leighton Road','W010',3000);
+INSERT INTO Customer VALUES ('C019','Simon Brown','12 Milton Way','W010',1000);
+
+INSERT INTO Customer VALUES ('C020','Hisham Bakry','110 Potters Bar Road','W025',1070);
+INSERT INTO Customer VALUES ('C021','Joan Parks','400 Hatfield Road','W010',1500);
+INSERT INTO Customer VALUES ('C022','Ali Qureshi','230 Leighton Road','W025',3000);
+INSERT INTO Customer VALUES ('C023','Tim Brown','127 Milton Way','W010',1500);
+
+INSERT INTO Customer (Customer_no, Cname, Warehouse_no, credit_limit) VALUES ('C024','Joe Black','W015',1000);
+INSERT INTO Customer (Customer_no, Cname, Warehouse_no, credit_limit) VALUES ('C025','Peter Smith','W020',1040);
+INSERT INTO Customer (Customer_no, Cname, Warehouse_no, credit_limit) VALUES ('C026','Tim Green','W015',6000);
+INSERT INTO Customer (Customer_no, Cname, Warehouse_no, credit_limit) VALUES ('C027','John Coldwell','W015',500);
+INSERT INTO Customer (Customer_no, Cname, Warehouse_no, credit_limit)VALUES ('C028','Lisa Greenman','W020',1000);
+INSERT INTO Customer (Customer_no, Cname, Warehouse_no, credit_limit) VALUES ('C029','Penny Hope','W010',500);
+
+
+
+
+INSERT INTO Product VALUES ('P001','Riding Hat', 50.00,'W005');
+INSERT INTO Product VALUES ('P002','Jodhpurs',20.00,'W005');
+INSERT INTO Product VALUES ('P003','Back support',60.00,'W005');
+INSERT INTO Product VALUES ('P004','Riding Boots',100.00,'W003');
+INSERT INTO Product VALUES ('P005','Jacket',155.00,'W003');
+INSERT INTO Product VALUES ('P101','Riding Hat', 250.00,'W008');
+INSERT INTO Product VALUES ('P102','Bridle',96.00,'W008');
+INSERT INTO Product VALUES ('P103','Sadle',150.00,'W005');
+INSERT INTO Product VALUES ('P104','Riding Coat',100.00,'W060');
+INSERT INTO Product VALUES ('P105','Bit',75.00,'W003');
+INSERT INTO Product VALUES ('P106','pack Leg bandages',50.00,'W003');
+INSERT INTO Product VALUES ('P107','Riding Boots',250.00,'W005');
+INSERT INTO Product VALUES ('P108','Numna',170.00,'W005');
+INSERT INTO Product VALUES ('P109','Riding Breaches',100.00,'W005');
+INSERT INTO Product VALUES ('P110','Blanket',76.00,'W005');
+
+
+
+
+INSERT INTO Corder VALUES ('CO101','C001','2020-08-10','2020-08-14');
+INSERT INTO Corder VALUES ('CO102','C005','2020-07-23','2020-07-25');
+INSERT INTO Corder VALUES ('CO103','C004','2020-06-19','2020-06-25');
+INSERT INTO Corder VALUES ('CO104','C002','2020-06-19','2020-06-30');
+INSERT INTO Corder VALUES ('CO105','C003','2020-05-05','2020-05-15');
+INSERT INTO Corder VALUES ('CO106','C008','2020-02-10','2020-02-20');
+INSERT INTO Corder VALUES ('CO107','C011','2020-02-03','2020-03-11');
+INSERT INTO Corder VALUES ('CO108','C013','2020-03-09','2020-03-11');
+INSERT INTO Corder (Corder_no, Customer_no, Date_Placed) VALUES ('CO109','C015','2020-09-09');
+INSERT INTO Corder VALUES ('CO110','C001','2020-08-10','2020-08-20');
+INSERT INTO Corder VALUES ('CO111','C004','02020-03-09','2020-03-11');
+INSERT INTO Corder VALUES ('CO112','C006','2020-04-09','2020-04-11');
+INSERT INTO Corder VALUES ('CO113','C007','2020-04-01','2020-04-12');
+INSERT INTO Corder (Corder_no, Customer_no, Date_Placed) VALUES ('CO114','C009','2020-04-03');
+INSERT INTO Corder VALUES ('CO115','C012','2020-04-04','2020-05-01');
+INSERT INTO Corder VALUES ('CO116','C013','2020-05-09','2020-05-11');
+INSERT INTO Corder VALUES ('CO117','C014','2020-08-12','2020-08-21');
+INSERT INTO Corder (Corder_no, Customer_no, Date_Placed) VALUES ('CO118','C015','2020-05-12');
+
+
+INSERT INTO Oline VALUES ('CO101','P101',1);
+INSERT INTO Oline VALUES ('CO101','P102',5);
+INSERT INTO Oline VALUES ('CO101','P103',2);
+INSERT INTO Oline VALUES ('CO102','P101',11);
+INSERT INTO Oline VALUES ('CO103','P104',12);
+INSERT INTO Oline VALUES ('CO103','P105',5);
+INSERT INTO Oline VALUES ('CO104','P102',2);
+INSERT INTO Oline VALUES ('CO104','P108',5);
+INSERT INTO Oline VALUES ('CO104','P109',1);
+INSERT INTO Oline VALUES ('CO105','P104',77);
+INSERT INTO Oline VALUES ('CO105','P105',3);
+INSERT INTO Oline VALUES ('CO106','P109',14);
+INSERT INTO Oline VALUES ('CO107','P101',11);
+INSERT INTO Oline VALUES ('CO107','P102',88);
+INSERT INTO Oline VALUES ('CO107','P103',52);
+INSERT INTO Oline VALUES ('CO107','P104',1);
+INSERT INTO Oline VALUES ('CO108','P104',14);
+INSERT INTO Oline VALUES ('CO109','P103',31);
+INSERT INTO Oline VALUES ('CO109','P105',14);
+INSERT INTO Oline VALUES ('CO110','P103',4);
+INSERT INTO Oline VALUES ('CO111','P106',5);
+INSERT INTO Oline VALUES ('CO112','P101',5);
+INSERT INTO Oline VALUES ('CO112','P104',16);
+INSERT INTO Oline VALUES ('CO113','P105',13);
+INSERT INTO Oline VALUES ('CO113','P106',7);
+INSERT INTO Oline VALUES ('CO114','P106',41);
+INSERT INTO Oline VALUES ('CO115','P107',15);
+INSERT INTO Oline VALUES ('CO115','P108',55);
+INSERT INTO Oline VALUES ('CO115','P109',34);
+INSERT INTO Oline VALUES ('CO116','P103',13);
+INSERT INTO Oline VALUES ('CO116','P104',26);
+INSERT INTO Oline VALUES ('CO117','P105',13);
+INSERT INTO Oline VALUES ('CO117','P106',1);
+INSERT INTO Oline VALUES ('CO117','P107',1);
+INSERT INTO Oline VALUES ('CO118','P101',13);
+INSERT INTO Oline VALUES ('CO118','P105',7);
+INSERT INTO Oline VALUES ('CO118','P106',23);
+INSERT INTO Oline VALUES ('CO115','P005',55);
+INSERT INTO Oline VALUES ('CO115','P004',34);
+INSERT INTO Oline VALUES ('CO116','P003',13);
+INSERT INTO Oline VALUES ('CO116','P004',26);
+INSERT INTO Oline VALUES ('CO117','P005',13);
+INSERT INTO Oline VALUES ('CO117','P001',1);
+INSERT INTO Oline VALUES ('CO117','P002',1);
+INSERT INTO Oline VALUES ('CO118','P001',13);
+INSERT INTO Oline VALUES ('CO118','P005',7);
+INSERT INTO Oline VALUES ('CO118','P004',23);
+
+a.
+Select Customer.CName, Customer.Address from Customer
+where CName = "Sam Green";
+
+b.
+Select Customer.CName, Warehouse.Warehouse_No 
+from Customer
+INNER JOIN Warehouse
+ON Customer.Warehouse_No = Warehouse.Warehouse_No
+LIMIT 5;
+
+
